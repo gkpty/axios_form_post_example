@@ -30,6 +30,11 @@ class App extends Component {
       .then(res => {
         console.log(res);
         console.log(res.data);
+        // if res.data.contains("success")
+          //notice("success")
+          // execute next function
+        // else
+          //alert("fail") 
       })
   }
 
@@ -40,15 +45,15 @@ class App extends Component {
           <h2>Copy To Bucket</h2>
           <label>
             Source Route
-            <input type="text" className="input" placeholder="Source Route" name="sourceRoute" onChange={this.handleChange} />
+            <input type="text" placeholder="Source Route" name="sourceRoute" onChange={this.handleChange} />
           </label>
           <label>
             Source Object
-          <input type="text" name="sourceObject" onChange={this.handleChange} />
+          <input type="text" placeholder="Source Object" name="sourceObject" onChange={this.handleChange} />
           </label>
           <label>
             Destination Route
-            <input type="text" name="destRoute" onChange={this.handleChange} />
+            <input type="text" placeholder="Destination Route" name="destRoute" onChange={this.handleChange} />
           </label>         
           <button type="submit">Add</button>
         </form>
