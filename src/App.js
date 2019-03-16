@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css'
+import 'semantic-ui-css/semantic.min.css'
 
 class App extends Component {
   state = {
@@ -10,10 +11,11 @@ class App extends Component {
   }
 
   handleChange = event => {
+    const target = event.target;
+    const value = target.value
+    const name = target.name;
     this.setState({ 
-      sourceRoute: event.target.value,
-      sourceObject: event.target.value,
-      destRoute: event.target.value
+      [name]: value
     });
   }
 
@@ -26,36 +28,49 @@ class App extends Component {
       destRoute: this.state.destRoute
     };
 
-    axios.post(`https://your_api_url`, { bucketVars })
+    const url = `https://your-api-url`;
+
+    const headers = {
+      'Accept': 'application/json', 
+      'Content-Type': 'application/x-www-form-urlencoded' 
+    };
+
+    axios.post( url, bucketVars, { headers } )
       .then(res => {
         console.log(res);
         console.log(res.data);
         // if res.data.contains("success")
-          //notice("success")
-          // execute next function
+          // notice("success")
+          // do something
         // else
-          //alert("fail") 
+          // alert("fail") 
       })
   }
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <h2>Copy To Bucket</h2>
-          <label>
-            Source Route
-            <input type="text" placeholder="Source Route" name="sourceRoute" onChange={this.handleChange} />
-          </label>
-          <label>
-            Source Object
-          <input type="text" placeholder="Source Object" name="sourceObject" onChange={this.handleChange} />
-          </label>
-          <label>
-            Destination Route
-            <input type="text" placeholder="Destination Route" name="destRoute" onChange={this.handleChange} />
-          </label>         
-          <button type="submit">Add</button>
+      <div className="ui container">
+        <form className="ui form" onSubmit={this.handleSubmit}>
+          <h2 className="ui dividing header">Copy To Bucket</h2>
+          <div className="field">
+            <label>
+              Source Route
+              <input type="text" placeholder="Source Route" name="sourceRoute" onChange={this.handleChange} />
+            </label>
+          </div>
+          <div className="field">
+            <label>
+              Source Object
+            <input type="text" placeholder="Source Object" name="sourceObject" onChange={this.handleChange} />
+            </label>
+          </div>
+          <div className="field">
+            <label>
+              Destination Route
+              <input type="text" placeholder="Destination Route" name="destRoute" onChange={this.handleChange} />
+            </label>
+          </div>                  
+          <button className="ui button" type="submit">Add</button>
         </form>
       </div>
     )
